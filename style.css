@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Big Shoulders", sans-serif;
     text-align: center;
     padding: 20px;
     background-color: #f4f4f4;
@@ -36,7 +36,7 @@ input {
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    text-align: right;
+    text-align: left;
 }
 
 .remove-btn {
