@@ -23,7 +23,7 @@ function loadDashboard() {
                     <thead>
                         <tr>
                             <th>Expense</th>
-                            <th>Amount (£)</th>
+                            <th class="right">Amount (£)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,7 +31,7 @@ function loadDashboard() {
                     <tfoot>
                         <tr id="totalRow">
                             <td>Total</td>
-                            <td id="totalAmount">£0.00</td>
+                            <td class="right" id="totalAmount">£0.00</td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -60,8 +60,8 @@ function loadBudget() {
     .map(
       (expense, index) => `
         <tr>
-            <td><input type="text" value="${expense.name}" data-index="${index}" class="expense-name" oninput="saveBudget()"></td>
-            <td><input type="number" value="${expense.amount}" data-index="${index}" class="expense-amount" oninput="updateTotal()"></td>
+            <td><input type="text" value="${expense.name}" data-index="${index}" class="expense-name left" oninput="saveBudget()"></td>
+            <td class="right"><input type="number" value="${expense.amount}" data-index="${index}" class="expense-amount right" oninput="updateTotal()"></td>
             <td><button class="remove-btn" onclick="removeRow(${index})">X</button></td>
         </tr>
     `
@@ -77,8 +77,8 @@ function addRow() {
 
   const row = document.createElement("tr");
   row.innerHTML = `
-        <td><input type="text" value="New Expense" data-index="${index}" class="expense-name" oninput="saveBudget()"></td>
-        <td><input type="number" value="0" data-index="${index}" class="expense-amount" oninput="updateTotal()"></td>
+        <td><input type="text" value="New Expense" data-index="${index}" class="expense-name left" oninput="saveBudget()"></td>
+        <td class="right"><input type="number" value="0" data-index="${index}" class="expense-amount right" oninput="updateTotal()"></td>
         <td><button class="remove-btn" onclick="removeRow(${index})">X</button></td>
     `;
 
@@ -93,12 +93,18 @@ function removeRow(index) {
   loadBudget();
 }
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function updateTotal() {
   let total = 0;
   document.querySelectorAll(".expense-amount").forEach((input) => {
     total += parseFloat(input.value) || 0;
   });
-  document.getElementById("totalAmount").innerText = `£${total.toFixed(2)}`;
+  totalFixed = total.toFixed(2);
+  totalAmount = numberWithCommas(totalFixed);
+  document.getElementById("totalAmount").innerText = `£${totalAmount}`;
   saveBudget();
 }
 
